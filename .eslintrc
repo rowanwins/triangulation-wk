@@ -1,0 +1,12 @@
+{
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": "mourner",
+  "rules": {
+    "indent": ["error", 4],
+    "semi": ["error", "never"],
+    "no-lonely-if": "off",
+    "prefer-arrow-callback": "off"
+  }
+}
