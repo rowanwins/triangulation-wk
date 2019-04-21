@@ -1,5 +1,8 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <div id="map"></div>
+    <p id="pointCount"></p>
+  </div>
 </template>
 
 <script>
@@ -15,44 +18,50 @@ import triangulate from '../../src/main'
 // Hack to get the markers into Vue correctly
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: marker2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow
+    iconRetinaUrl: marker2x,
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow
 })
 
 export default {
-  name: 'App',
-  mounted: function () {
-    const poly = {type: 'Polygon', coordinates: [[[-1.7578125, -2.460181181020993],[51.67968749999999,4.565473550710278],[19.6875,10.487811882056695],[18.28125,20.3034175184893],[5.9765625,22.59372606392931],[42.1875,29.22889003019423],[ 23.90625,44.59046718130883], [14.0625,29.22889003019423],[ 7.734374999999999,42.293564192170095],[-9.4921875,39.639537564366684],[-1.7578125,-2.460181181020993]]]}
+    name: 'App',
+    mounted() {
+        const poly = {type: 'Polygon', coordinates: [[[-1, -2], [51, 4], [19, 10], [18, 20], [5, 22], [42, 29], [23, 44], [14, 29], [7, 42], [-9, 39], [-1, -2]]]}
 
-    const layer = L.geoJSON(poly)
-    let map = window.map = L.map('app', {
-      crs: L.CRS.Simple
-    }).fitBounds(layer.getBounds())  
+        const layer = L.geoJSON(poly)
+        const map = window.map = L.map('map', {
+            crs: L.CRS.Simple
+        }).fitBounds(layer.getBounds())
 
-    layer.addTo(map)
-    map.addControl(new L.Coordinates());
+        layer.addTo(map)
+        map.addControl(new L.Coordinates())
 
 
-    const out = triangulate(poly.coordinates)
+        const out = triangulate(poly.coordinates)
 
-    out.forEach(function (tri) {
-      L.geoJSON({type: 'Polygon', coordinates: [tri]}, {
-          fillOpacity: 0,
-          weight: 1,
-          color: 'red'
-        }).addTo(map)
-    })
+        out.forEach(function (tri) {
+            L.geoJSON({type: 'Polygon', coordinates: [tri]}, {
+                fillOpacity: 0,
+                weight: 1,
+                color: 'red'
+            }).addTo(map)
+        })
 
-  }
+    }
 }
 
 </script>
 
 <style>
- html, body, #app {
+ html, body, #app, #map {
   height: 100%;
   width: 100%;
   margin: 0px;
+ }
+
+ #pointCount {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
  }
 </style>
