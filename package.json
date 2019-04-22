@@ -25,8 +25,9 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "build:docs": "cross-env webpack --config debug/webpack.config.js --env.NODE_ENV=production --progress --hide-modules",
     "bench": "node ./test/benchmark.js",
-    "debug": "cross-env webpack-dev-server --config debug/webpack.config.js --mode development --open --hot",
+    "debug": "cross-env webpack-dev-server --config debug/webpack.config.js --env.NODE_ENV=development --open --hot",
     "test": "ava -v"
   },
   "ava": {

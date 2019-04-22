@@ -12,6 +12,7 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import './coords'
+const dude = require('../../test/harness/dude.json')
 
 import triangulate from '../../src/main'
 
@@ -28,7 +29,8 @@ export default {
     mounted() {
         const poly = {type: 'Polygon', coordinates: [[[-1, -2], [51, 4], [19, 10], [18, 20], [5, 22], [42, 29], [23, 44], [14, 29], [7, 42], [-9, 39], [-1, -2]]]}
 
-        const layer = L.geoJSON(poly)
+        const layer = L.geoJSON(dude)
+        
         const map = window.map = L.map('map', {
             crs: L.CRS.Simple
         }).fitBounds(layer.getBounds())
@@ -37,7 +39,7 @@ export default {
         map.addControl(new L.Coordinates())
 
 
-        const out = triangulate(poly.coordinates)
+        const out = triangulate(dude.coordinates)
 
         out.forEach(function (tri) {
             L.geoJSON({type: 'Polygon', coordinates: [tri]}, {

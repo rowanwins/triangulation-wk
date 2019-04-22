@@ -16,11 +16,6 @@ export default function triangulate(coords) {
     for (n; n < diagonals; n++) {
         i = 0
         for (i; i < pointsLength; i++) {
-
-            // const current = coordsToMutate[i]
-            // const prev = i === 0 ? coordsToMutate[pointsLength - 1] : coordsToMutate[i - 1]
-            // const next = i !== pointsLength - 1 ? coordsToMutate[i + 1] : coordsToMutate[0]
-
             if (isConvex(i) && isEmpty(i)) {
                 prune(i)
                 break
