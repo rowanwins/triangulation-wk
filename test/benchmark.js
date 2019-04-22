@@ -7,26 +7,36 @@ const dude = {type: 'Polygon', coordinates: [
 ]}
 
 const data = earcut.flatten(dude.coordinates)
-//     console.log(dude.coordinates[0].length)
-//         console.log(triangulate(dude.coordinates).length)
-//     console.log(dude.coordinates[0].length)
-        // console.log(triangulate(dude.coordinates).length)
+// console.log(dude.coordinates[0].length)
+// console.log(triangulate(dude.coordinates).length)
+// console.log(dude.coordinates[0].length)
+// console.log(triangulate(dude.coordinates).length)
+
+var hrstart = process.hrtime()
+triangulate(dude.coordinates)
+var hrend = process.hrtime(hrstart)
+console.info('Execution time (hr): %ds %dms', hrend[0], hrend[1] / 1000000)
 
 
-new Suite('dude shape')
-    .add('triangulation-wk', () => {
-        triangulate(dude.coordinates)
-    })
-    .add('mapbox/earcut', () => {
-        earcut(data.vertices, data.holes, data.dimensions)
-    })
-    .on('cycle', function (event) {
-        console.log(event.target.toString())
-    })
-    .on('error', function (e) {
-        throw e.target.error
-    })
-    .on('complete', function () {
-        console.log(`Fastest is ${this.filter('fastest').map('name')}`)
-    })
-    .run()
+var hrstart2 = process.hrtime()
+earcut(data.vertices, data.holes, data.dimensions)
+var hrend2 = process.hrtime(hrstart2)
+console.info('Execution time (hr): %ds %dms', hrend2[0], hrend2[1] / 1000000)
+
+// new Suite('dude shape')
+//     .add('triangulation-wk', () => {
+//         triangulate(dude.coordinates)
+//     })
+//     .add('mapbox/earcut', () => {
+//         earcut(data.vertices, data.holes, data.dimensions)
+//     })
+//     .on('cycle', function (event) {
+//         console.log(event.target.toString())
+//     })
+//     .on('error', function (e) {
+//         throw e.target.error
+//     })
+//     .on('complete', function () {
+//         console.log(`Fastest is ${this.filter('fastest').map('name')}`)
+//     })
+//     .run()

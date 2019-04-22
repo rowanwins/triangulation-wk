@@ -10,6 +10,11 @@ test('is inside', (t) => {
     const out = triangulate(polygon)
     t.is(out.length, 8)
     t.deepEqual(polygon, clonedPoly)
+
+    console.log(JSON.stringify(polygon))
+    const out2 = triangulate(polygon)
+    t.is(out2.length, 8)
+    t.deepEqual(polygon, clonedPoly)
 })
 
 // const polygon = [
