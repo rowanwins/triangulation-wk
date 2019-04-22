@@ -1,6 +1,9 @@
 Based on the paper [Accurate, simple and efficient triangulation of a polygon by ear removal with lowest memory consumption](https://www.researchgate.net/publication/311245887_Accurate_simple_and_efficient_triangulation_of_a_polygon_by_ear_removal_with_lowest_memory_consumption)
 
-- Works on polygons with holes
+Limitations
+- Doesn't yet work on polygons with holes
+- Mutates the input data (currently - hoping to work around that)
+
 
 ### Usage
 Install via `npm install triangulation-wk`
